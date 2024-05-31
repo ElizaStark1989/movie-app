@@ -21,12 +21,6 @@ const getOne = catchError(async(req, res) => {
     return res.json(result);
 });
 
-const remove = catchError(async(req, res) => {
-    const { id } = req.params;
-    await Movie.destroy({ where: {id} });
-    return res.sendStatus(204);
-});
-
 const update = catchError(async(req, res) => {
     const { id } = req.params;
     const result = await Movie.update(
@@ -35,6 +29,12 @@ const update = catchError(async(req, res) => {
     );
     if(result[0] === 0) return res.sendStatus(404);
     return res.json(result[1][0]);
+});
+
+const remove = catchError(async(req, res) => {
+    const { id } = req.params;
+    await Movie.destroy({ where: {id} });
+    return res.sendStatus(204);
 });
 
 const setMoviesGenres = catchError(async(req, res) => {
